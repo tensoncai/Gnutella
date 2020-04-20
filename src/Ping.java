@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class Ping extends Thread {
 	public void run() {
 		while (true) {
 			for (Node neighbor : neighbors) {
-				ping(neighbor.ip, neighbor.listeningPort);
+				ping(neighbor.IP, neighbor.listeningPort);
 			}
 			
 			try {
@@ -26,10 +29,13 @@ public class Ping extends Thread {
 		}
 	}
 	
-	public void ping(String IP, int port) {
+	public void ping(InetAddress IP, int port) {
 		try {
-			CreateSocket s = new CreateSocket(IP, port);
-			s.sendPacket(header, header.length);
+			DatagramSocket s = new DatagramSocket();
+			DatagramPacket packet = new DatagramPacket(header, header.length, IP, port);
+			s.send(packet);
+//			CreateSocket s = new CreateSocket(IP, port);
+//			s.sendPacket(header, header.length);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
