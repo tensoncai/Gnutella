@@ -28,12 +28,6 @@ public class DescriptorHeader extends Utilities {
 		
 		// message id
 		generateMessageId();
-		
-//		for (int i = 0; i < messageId.length; i++) {
-//			System.out.println(messageId[i]);
-//		}
-		
-		
 		System.arraycopy(messageId, 0, header, 0, messageId.length);
 
 		// payload descriptor
@@ -41,20 +35,30 @@ public class DescriptorHeader extends Utilities {
 		
 		// time to live (ttl)
 		byte[] ttl = Utilities.intToBigEndianByteArray(1);
-		
-		for (int i = 0; i < ttl.length; i++) {
-			System.out.println("ttl = " + ttl[i]);
-		}
-		
 		System.arraycopy(ttl, 0, header, 16, ttl.length);
 		
 		// hops = 0
-		
 		// payload length = 0
 		
-		for (int i = 0; i < header.length; i++) {
-			System.out.println(header[i]);
-		}
+		return header;
+	}
+	
+	private byte[] createPongHeader() {
+		header = new byte[28];
+		
+		// message id
+		generateMessageId();
+		System.arraycopy(messageId, 0, header, 0, messageId.length);
+
+		// payload descriptor
+		header[15] = '2';
+		
+		// time to live (ttl)
+		byte[] ttl = Utilities.intToBigEndianByteArray(1);
+		System.arraycopy(ttl, 0, header, 16, ttl.length);
+		
+		// hops = 0
+		// payload length = 0
 		
 		return header;
 	}

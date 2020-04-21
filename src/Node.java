@@ -25,6 +25,10 @@ public class Node {
 		
 		Ping ping = new Ping(neighbors, header);
 		ping.start();
-		
+	}
+	
+	public void listenForIncoming() {
+		Listen listening = new Listen(listeningPort);
+		listening.start();
 	}
 }

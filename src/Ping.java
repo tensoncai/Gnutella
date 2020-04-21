@@ -16,10 +16,13 @@ public class Ping extends Thread {
 	
 	public void run() {
 		while (true) {
+			System.out.println(neighbors.size());
 			for (Node neighbor : neighbors) {
 				ping(neighbor.IP, neighbor.listeningPort);
+				System.out.println("ping sent");
 			}
 			
+			System.out.println("Here");
 			try {
 				Thread.sleep(3000);
 			} 
@@ -36,6 +39,7 @@ public class Ping extends Thread {
 			s.send(packet);
 //			CreateSocket s = new CreateSocket(IP, port);
 //			s.sendPacket(header, header.length);
+			s.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
