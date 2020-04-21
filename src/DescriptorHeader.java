@@ -15,6 +15,7 @@ public class DescriptorHeader extends Utilities {
 				header = createPingHeader();
 				break;
 			case "pong":
+				header = createPongHeader();
 			case "push":
 			case "query":
 			case "queryhit":

@@ -39,6 +39,8 @@ public class Listen extends Thread {
 //				System.out.println(incoming[i]);
 //			}
 			
+			// now analyze packet received. Find out which operation pong, query, etc. to do
+			// if pong, then make reply object and do pong operation
 //			System.out.println("listening");
 //			ServerSocket serverSocket = new ServerSocket(listeningPort);
 //			socket = serverSocket.accept(); 
