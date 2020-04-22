@@ -42,6 +42,7 @@ public class Reply extends Thread {
 			case "push":
 			case "query":
 			case "queryhit":
+			case "neighbor":
 		}
 		
 	}
@@ -67,5 +68,9 @@ public class Reply extends Thread {
 		DatagramPacket packet = new DatagramPacket(message, message.length, IP, clientPort);
 		socket.send(packet);
 		socket.close();
+	}
+	
+	public void getNeighbor() {
+		
 	}
 }

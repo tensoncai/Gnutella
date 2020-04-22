@@ -15,14 +15,12 @@ public class Ping extends Thread {
 		this.neighbors = neighbors;
 		this.header = header;
 		s = new DatagramSocket(port + 1);
-		System.out.println("get local port here = " + s.getLocalPort());
 	}
 	
 	public void run() {
 		while (true) {
 			for (Node neighbor : neighbors) {
 				ping(neighbor.IP, neighbor.port);
-				System.out.println("ping sent");
 			}
 			
 			try {

@@ -59,8 +59,9 @@ public class DescriptorHeader extends Utilities {
 		System.arraycopy(ttl, 0, header, 16, ttl.length);
 		
 		// hops = 0
-		// payload length = 0
-		
+		// payload length = 16
+		byte[] payloadLen = Utilities.intToBigEndianByteArray(16);
+		System.arraycopy(payloadLen, 0, header, 24, payloadLen.length);
 		return header;
 	}
 	
