@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
@@ -21,5 +23,6 @@ public class Test {
 //		neighbors.add(D);
 		A.neighbors = neighbors;
 		A.pingNeighbors();
+
 	}
 }

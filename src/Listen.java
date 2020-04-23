@@ -64,17 +64,18 @@ public class Listen extends Thread {
 			switch (descriptor) {
 				case '1':
 					// When a ping is received, send a pong back
-					Reply myPong = new Reply(ip, port, clientPort, numFilesToShare, numKb, IP, "pong");
+					Reply myPong = new Reply(ip, port, clientPort, numFilesToShare, numKb, IP, "pong", neighbors);
 					myPong.start();
 					
 					// After sending your pong, send a pong for each of your neighbors
 					for (Node neighbor : neighbors) {
 						Reply pongReply = new Reply(neighbor.ip, neighbor.port, clientPort, 
-								neighbor.numFilesToShare, neighbor.numKb, neighbor.IP, "pong");
+								neighbor.numFilesToShare, neighbor.numKb, neighbor.IP, "pong", neighbors);
 						pongReply.start();
 					}
 					
 					break;
+					
 				case '2':
 					received = new byte[packet.getLength()];
 					System.arraycopy(incoming, 0, received, 0, received.length);
@@ -86,9 +87,42 @@ public class Listen extends Thread {
 					}
 					
 					break;
+					
 				case '3':
+					break;
+					
 				case '4':
+					received = new byte[packet.getLength()];
+					System.arraycopy(incoming, 0, received, 0, received.length);
+					byte[] b = {received[16], received[17], received[18], received[19]};
+					int ttl = Utilities.convertBigEndianByteArrayToInt(b);
+					
+					byte[] hop = {received[20], received[21], received[22], received[23]};
+					int hops = Utilities.convertBigEndianByteArrayToInt(hop);
+					
+					boolean hasFile = false;
+					
+					if (!hasFile && ttl > 0) {
+						byte[] a = Utilities.intToBigEndianByteArray(ttl - 1);
+						byte[] h = Utilities.intToBigEndianByteArray(hops + 1);
+						System.arraycopy(a, 0, received, 16, a.length);
+						System.arraycopy(a, 0, received, 20, h.length);
+						
+						DatagramSocket s;
+						DatagramPacket p;
+						for (Node n : neighbors) {
+							s = new DatagramSocket();
+							p = new DatagramPacket(received, received.length, IP, n.port);
+							s.send(p);
+						}
+						
+						socket.close();
+					}
+					
+					break;
+					
 				case '5':
+					break;
 			}
 			
 			

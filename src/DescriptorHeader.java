@@ -24,6 +24,26 @@ public class DescriptorHeader extends Utilities {
 		return header;
 	}
 	
+	private byte[] createQueryHeader() {
+		header = new byte[28];
+		
+		// message id
+		generateMessageId();
+		System.arraycopy(messageId, 0, header, 0, messageId.length);
+
+		// payload descriptor
+		header[15] = '4';
+		
+		// time to live (ttl)
+		byte[] ttl = Utilities.intToBigEndianByteArray(2);
+		System.arraycopy(ttl, 0, header, 16, ttl.length);
+		
+		// hops = 0
+		// payload length = 0
+		
+		return header;
+	}
+	
 	private byte[] createPingHeader() {
 		header = new byte[28];
 		
@@ -39,7 +59,9 @@ public class DescriptorHeader extends Utilities {
 		System.arraycopy(ttl, 0, header, 16, ttl.length);
 		
 		// hops = 0
-		// payload length = 0
+		// payload length
+		byte[] payloadLen = Utilities.intToBigEndianByteArray(16);
+		System.arraycopy(payloadLen, 0, header, 24, payloadLen.length);
 		
 		return header;
 	}

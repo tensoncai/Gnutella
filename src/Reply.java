@@ -4,6 +4,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class Reply extends Thread {
 	String ip;
@@ -13,9 +14,10 @@ public class Reply extends Thread {
 	int numKb;
 	InetAddress IP;
 	String operation;
+	List<Node> neighbors;
 	
 	public Reply(String ip, int myPort, int clientPort, int numFilesToShare, 
-				 int numKb, InetAddress IP, String operation) throws UnknownHostException {
+				 int numKb, InetAddress IP, String operation, List<Node> neighbors) throws UnknownHostException {
 		this.ip = ip;
 		this.myPort = myPort;
 		this.clientPort = clientPort;
@@ -23,6 +25,7 @@ public class Reply extends Thread {
 		this.numKb = numKb;
 		this.IP = InetAddress.getByName("localhost");
 		this.operation = operation;
+		this.neighbors = neighbors;
 	}
 	
 	public void run() {

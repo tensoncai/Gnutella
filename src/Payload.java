@@ -25,6 +25,12 @@ public class Payload {
 		return payload;
 	}
 	
+	private byte[] queryPayLoad() {
+		payload = new byte[16];
+		
+		return payload;
+	}
+	
 	private byte[] pongPayLoad() {
 		payload = new byte[16];
 		
