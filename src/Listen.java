@@ -114,9 +114,8 @@ public class Listen extends Thread {
 							s = new DatagramSocket();
 							p = new DatagramPacket(received, received.length, IP, n.port);
 							s.send(p);
+							s.close();
 						}
-						
-						socket.close();
 					}
 					
 					break;

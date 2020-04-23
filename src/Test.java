@@ -15,12 +15,13 @@ public class Test {
 		
 		A.listenForIncoming();
 		B.listenForIncoming();
-//		C.listenForIncoming();
+		C.listenForIncoming();
 		
 		List<Node> neighbors = new ArrayList<Node>();
 		neighbors.add(B);
-//		neighbors.add(C);
-//		neighbors.add(D);
+		neighbors.add(C);
+		neighbors.add(D);
+		
 		A.neighbors = neighbors;
 		A.pingNeighbors();
 

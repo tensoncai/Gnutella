@@ -18,8 +18,29 @@ public class DescriptorHeader extends Utilities {
 				header = createPongHeader();
 			case "push":
 			case "query":
+				header = createQueryHeader();
 			case "queryhit":
 		}
+		
+		return header;
+	}
+	
+	private byte[] createQueryHitHeader() {
+		header = new byte[28];
+		
+		// message id
+		generateMessageId();
+		System.arraycopy(messageId, 0, header, 0, messageId.length);
+
+		// payload descriptor
+		header[15] = '5';
+		
+		// time to live (ttl)
+		byte[] ttl = Utilities.intToBigEndianByteArray(2);
+		System.arraycopy(ttl, 0, header, 16, ttl.length);
+		
+		// hops = 0
+		// payload length = 0
 		
 		return header;
 	}
